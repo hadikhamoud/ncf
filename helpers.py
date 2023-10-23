@@ -20,6 +20,15 @@ def build_payload_dir_name(path, **kwargs):
     return os.path.join(path, name)
 
 
+def read_keywords_file(filepath, operator = "OR"):
+    with open(filepath, "r") as f:
+        keywords = f.readlines()
+        keywords = [keyword.strip() for keyword in keywords]
+    return f" {operator} ".join(keywords)
+
+
+
+
 
 
 def setup_logger(name, log_file, level=logging.INFO):
