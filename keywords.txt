@@ -1,4 +1,3 @@
-israel
 hamas
 gaza
 palestine
@@ -8,5 +7,3 @@ israeli
 israelis
 occupied territories
 west bank
-qassam
-aqsa

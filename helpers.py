@@ -4,6 +4,7 @@ import os
 import logging
 import sys
 from config import LOGGING_DIR
+import time
 
 def save_payload_by_query_params(payload, out_dir):
     if not os.path.exists(out_dir):
@@ -20,15 +21,34 @@ def build_payload_dir_name(path, **kwargs):
     return os.path.join(path, name)
 
 
-def read_keywords_file(filepath, operator = "OR"):
+def read_keywords_file(filepath, operator = "OR", encode = False):
+
+
     with open(filepath, "r") as f:
         keywords = f.readlines()
         keywords = [keyword.strip() for keyword in keywords]
-    return f" {operator} ".join(keywords)
+
+    if operator == "":
+        return keywords
+    
+    if encode: keywords = [keyword.replace(" ", "+") for keyword in keywords]
+
+    return f"{operator}".join(keywords)
 
 
 
 
+def throttle(t):
+    #delay the function for t seconds
+    def decorator(func):
+        def wrapper(*args, **kwargs):
+            time.sleep(t)
+            return func(*args, **kwargs)
+        return wrapper
+
+
+def throt(t):
+    time.sleep(t)
 
 
 def setup_logger(name, log_file, level=logging.INFO):
