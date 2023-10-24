@@ -155,10 +155,10 @@ if __name__ == "__main__":
         words = text.split()
         update_frequency_dict(time, words, n_grams)
 
-    # Convert defaultdict to regular dictionary for better readability
+    
     frequency_dict = dict(frequency_dict)
 
-    # Print the results
+
     for k in frequency_dict:
         frequency_dict[k]["oct7"] = sum([frequency_dict[k][n_gram] for n_gram in n_grams])
         [frequency_dict[k].pop(n_gram) for n_gram in n_grams]
@@ -167,15 +167,15 @@ if __name__ == "__main__":
     df = pd.DataFrame.from_dict(frequency_dict, orient='index').fillna(0)
     df.index = pd.to_datetime(df.index)
 
-    # Sort DataFrame by date
+
     df.sort_index(inplace=True)
 
-    # Plot the data
+
     plt.figure(figsize=(10, 5))
     for column in df.columns:
         plt.plot(df.index, df[column], marker='o', label=column)
 
-    # Customize the plot
+
     plt.title('Word Frequency Timeline')
     plt.xlabel('Date')
     plt.ylabel('Frequency')
@@ -183,7 +183,7 @@ if __name__ == "__main__":
     plt.grid(True, linestyle='--', alpha=0.7)
     plt.legend()
 
-    # Show the plot
+    
     plt.tight_layout()
     plt.savefig("word_frequency_timeline.png")
 
